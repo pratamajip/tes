@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview & Tanda Tangan PDF</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/8.3.5/konva.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        .konvajs-content {
+            width: 100% !important;
+            height: 100% !important;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        #popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;  /* Pastikan popup berada di atas konten lain */
+        }
+
+        #popup {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 10000; /* Pastikan konten dalam popup berada di atas background */
+        }
+
+        .psre-button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 150px;
+            border: none;
+            /* background-color: #007bff; */
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10001; /* Pastikan tombol berada di atas popup */
+        }
+
+        .psre-button:hover {
+            /* background-color: #0056b3; */
+            border-style: solid;
+            border-color: #c0392b;
+        }
+
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .controls label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .controls input[type="text"], .controls input[type="password"] {
+            padding: 8px;
+            margin: 10px 0;
+            width: 80%;
+            max-width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .controls button {
+            padding: 10px 20px;
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+        }
+
+        .controls button:hover {
+            background-color: white;
+            color: #c0392b;
+        }
+
+        #pdf-container {
+            position: relative;
+            width: 920px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            width: 100%;
+        }
+
+        #konva-container {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        #page-info {
+            margin: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        header {
+            background-color: #ffffff;
+            width: auto;
+            padding: 20px;
+            /* color: white; */
+            text-align: left;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* margin-left: 20px; */
+            /* border-radius: 5px; */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        footer {
+            background-color: #f4f7fc;
+            color: #555;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="popup-container">
+        <div id="popup">
+            <h3>Pilih PSrE</h3>
+            <input type="image" src="{{ url_for('static', filename='images/bsre.png') }}" style="width: 175px;" class="psre-button" onclick="selectPSrE('BSrE')"/>
+            <input type="image" src="{{ url_for('static', filename='images/privy.png') }}" style="width: 175px;" class="psre-button" onclick="selectPSrE('Privy')"/>
+            <!-- <input type="image" src="{{ url_for('static', filename='images/vida.png') }}" style="width: 175px;" class="psre-button" onclick="selectPSrE('Vida')"/> -->
+            <!-- <button class="psre-button" onclick="selectPSrE('BSrE')">BSrE</button>
+            <button class="psre-button" onclick="selectPSrE('Privy')">Privy</button>
+            <button class="psre-button" onclick="selectPSrE('Vida')">Vida</button> -->
+        </div>
+    </div>
+    
+    <script>
+        function selectPSrE(psre) {
+            // Menyembunyikan popup ketika PSrE dipilih
+            document.getElementById('popup-container').style.display = 'none';
+        }
+
+    </script>
+
+    <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <!-- Logo di kiri -->
+        <img src="{{ url_for('static', filename='images/logo-navbar-srikandi.png') }}" alt="Gambar" style="width: 250px;">
+
+        <div class="controls">
+            <a href="/profile">
+                <button class="button logout">Profil</button>
+            </a>
+        </div>
+        <!-- Tombol di kanan -->
+        <!-- <a href="/profile">
+            <button class="button">Profile</button>
+        </a> -->
+        
+    </header>
+
+
+    <h2>Upload PDF & Tambahkan Tanda Tangan</h2>
+
+    <div class="controls">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" required>
+        <label for="passphrase">Passphrase:</label>
+        <input type="password" id="passphrase" name="passphrase" required>
+    </div>
+
+    <div class="controls">
+        <input type="file" id="pdf-upload" accept="application/pdf">
+        <input type="file" id="image-upload" accept="image/* multiple">
+        <button onclick="savePDF()">Simpan PDF</button>
+        <button onclick="signPDF()">Tandatangani PDF</button>
+    </div>
+
+    <div class="controls">
+        <button id="prev-page">Previous</button>
+        <span id="page-info">Halaman: - / -</span>
+        <button id="next-page">Next</button>
+    </div>
+
+    <div id="pdf-container">
+        <canvas id="pdf-canvas"></canvas>
+        <div id="konva-container"></div>
+    </div>
+
+    <footer>
+        &copy; 2025 Balai Layanan Penghubung Identitas Digital. All Rights Reserved.
+    </footer>
+
+    <script>
+        let pdfDoc = null;
+        let konvaStage, konvaLayer, transformer;
+        let currentPage = 1;
+        let totalPages = 0;
+
+        document.getElementById('pdf-upload').addEventListener('change', async function(event) {
+            let file = event.target.files[0];
+            let fileReader = new FileReader();
+            
+            fileReader.onload = async function() {
+                let typedarray = new Uint8Array(this.result);
+                let loadingTask = pdfjsLib.getDocument(typedarray);
+                pdfDoc = await loadingTask.promise;
+                totalPages = pdfDoc.numPages;
+                renderPage(1);
+            };
+            
+            fileReader.readAsArrayBuffer(file);
+        });
+
+        document.getElementById('prev-page').addEventListener('click', function() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage(currentPage);
+            }
+        });
+
+        document.getElementById('next-page').addEventListener('click', function() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPage(currentPage);
+            }
+        });
+
+        async function renderPage(pageNumber) {
+            let page = await pdfDoc.getPage(pageNumber);
+            let viewport = page.getViewport({ scale: 1.675 });
+
+            let pdfCanvas = document.getElementById('pdf-canvas');
+            pdfCanvas.width = viewport.width;
+            console.log(viewport.width);
+            console.log(viewport.height);
+            pdfCanvas.height = viewport.height;
+
+            let context = pdfCanvas.getContext('2d');
+            let renderContext = { canvasContext: context, viewport: viewport };
+            await page.render(renderContext).promise;
+
+            let konvaContainer = document.getElementById('konva-container');
+            konvaContainer.style.width = `100%`;
+            konvaContainer.style.height = `100%`;
+
+            setupKonva(viewport.width, viewport.height);
+
+            document.getElementById('page-info').innerText = `Halaman: ${pageNumber} / ${totalPages}`;
+            document.getElementById('prev-page').disabled = pageNumber === 1;
+            document.getElementById('next-page').disabled = pageNumber === totalPages;
+        }
+
+        function setupKonva(width, height) {
+            konvaStage = new Konva.Stage({
+                container: 'konva-container',
+                width:  document.getElementById("konva-container").offsetWidth,
+                height:  document.getElementById("konva-container").offsetHeight,
+                pixelRatio: 1
+            });
+
+            konvaLayer = new Konva.Layer();
+            konvaStage.add(konvaLayer);
+
+            transformer = new Konva.Transformer();
+            konvaLayer.add(transformer);
+
+            konvaStage.on('click', (e) => {
+                if (e.target === konvaStage) {
+                    transformer.nodes([]);
+                }
+            });
+        }
+
+        document.getElementById('image-upload').addEventListener('change', function(event) {
+            let file = event.target.files[0];
+            let reader = new FileReader();
+
+            reader.onload = function() {
+                let img = new Image();
+                img.src = reader.result;
+                img.onload = function() {
+                    let konvaImage = new Konva.Image({
+                        image: img,
+                        x: 100,
+                        y: 100,
+                        draggable: true,
+                        width: 150,
+                        height: 75
+                    });
+                    konvaLayer.add(konvaImage);
+                    konvaLayer.draw();
+
+                    konvaImage.on('click', () => {
+                        transformer.nodes([konvaImage]);
+                    });
+                };
+            };
+            reader.readAsDataURL(file);
+        });
+
+        async function savePDF() {
+            let pdfFile = document.querySelector("#pdf-upload").files[0];
+            if (!pdfFile) {
+                alert("Pilih file PDF terlebih dahulu!");
+                return;
+            }
+
+            let pdfBytes = await pdfFile.arrayBuffer();
+            let pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
+            let page = pdfDoc.getPages()[0];
+            let { width, height } = page.getSize();
+
+            // Dapatkan ukuran asli dari konvaStage
+            let stageWidth = konvaStage.width();
+            let stageHeight = konvaStage.height();
+
+            // Ambil gambar dari Konva dengan pixelRatio tinggi
+            let konvaDataUrl = konvaStage.toDataURL({ pixelRatio: window.devicePixelRatio, mimeType: "image/png", quality: 1 });
+            let img = await pdfDoc.embedPng(konvaDataUrl);
+
+            // Hitung skala agar sesuai dengan PDF
+            let scaleX = width / stageWidth;
+            let scaleY = height / stageHeight;
+
+            // Terapkan gambar ke halaman PDF
+            page.drawImage(img, { x: 0, y: 0, width: width, height: height });
+
+            let finalPdfBytes = await pdfDoc.save();
+            let pdfBlob = new Blob([finalPdfBytes], { type: "application/pdf" });
+
+            let formData = new FormData();
+            formData.append("pdf", pdfBlob, "edited_document.pdf");
+
+            fetch("/save_pdf", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => alert("PDF berhasil disimpan!"))
+            .catch(error => console.error("Error:", error));
+        }
+
+
+        function signPDF() {
+            let userId = document.getElementById('id').value;
+            let passphrase = document.getElementById('passphrase').value;
+
+            if (!userId || !passphrase) {
+                alert("ID dan Passphrase harus diisi!");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append('id', userId);
+            formData.append('passphrase', passphrase);
+
+            fetch('/tte', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error("Gagal menandatangani PDF.");
+                }
+                return response.text();
+            }).then(() => {
+                window.location.href = "http://localhost:8200/download_signed";
+            }).catch(error => {
+                alert(error.message);
+            });
+        }
+    </script>
+</body>
+</html>

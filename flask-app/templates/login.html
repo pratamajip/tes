@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            max-width: 1200px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .left-section, .right-section {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .left-section {
+            background-color: #fff;
+            text-align: center;
+            border-right: 1px solid #ccc;
+        }
+
+        .left-section img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 50px;
+        }
+
+        .left-section p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .right-section {
+            background-color: #ffffff;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right-section img {
+            max-width: 100%;
+            height: auto;
+            /* margin-bottom: 20px;
+            margin-top: 100px; */
+        }
+
+        .right-section button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .right-section input {
+            /* padding: 10px 20px; */
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ffffff;
+            /* color: #7d7c7c; */
+            /* border-style: solid; */
+            /* border-radius: 20px; */
+            transition: background-color 0.3s;
+        }
+
+        .right-section button:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        .right-section input:hover {
+            background-color: #ffffff;
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Bagian Kiri -->
+        <div class="left-section">
+            <img src="{{ url_for('static', filename='images/srikandi.png') }}" alt="Gambar" style="width: 250px;">
+            <p>Selamat datang di halaman login kami. Silakan masuk untuk melanjutkan.</p>
+        </div>
+
+        <!-- Bagian Kanan -->
+        <div class="right-section">
+            <img src="{{ url_for('static', filename='images/lembaga.png') }}" alt="Gambar" style="padding-bottom: 50px; width: 300px;">
+            <p style="color: #555;;">Silakan masuk menggunakan:</p>
+            <!-- <img src="{{ url_for('static', filename='images/CONNECTIDN.png') }}" alt="Gambar" style="width: 250px;"> -->
+            <a href="/login">
+                <!-- <button style="background: url();">Masuk</button> -->
+                <input type="image" src="{{ url_for('static', filename='images/tombol-connectidn.png') }}" style="width: 175px;"/>
+            </a>
+
+            
+            <!-- <img src="{{ url_for('static', filename='images/Powered-BLPID.png') }}" alt="Gambar" style="width: 200px; padding-top: 120px;"> -->
+        </div>
+    </div>
+
+</body>
+</html>

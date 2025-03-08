@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: row;
+            padding: 0;
+        }
+        header {
+            background-color: #003369;
+            width: auto;
+            padding: 20px;
+            color: white;
+            text-align: left;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            border-radius: 5px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .sidebar {
+            width: 260px;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            padding-top: 30px;
+            position: fixed;
+            height: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar img {
+            display: block;
+            margin: 0 auto;
+            width: 60%;
+        }
+        .sidebar .menu {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar .menu li {
+            /* padding: 20px; */
+            padding-top: 10px;
+            text-align: center;
+            display: block;
+        }
+        .sidebar .menu li a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 18px;
+            display: block;
+        }
+        .sidebar .menu li a:hover {
+            background-color: #e74c3c;
+            color: rgb(255, 255, 255);
+            /* border-style: solid; */
+            border-radius: 5px;
+            padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            display: block;
+        }
+        .content {
+            margin-left: 250px; /* Makes room for the sidebar */
+            /* padding: 30px; */
+            flex: 1;
+            position: relative;
+        }
+        .profile-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            margin: 50px auto;
+            box-sizing: border-box;
+        }
+        .profile-container h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .info {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .info p {
+            font-size: 16px;
+            color: #555;
+            margin: 5px 0;
+        }
+        .info p strong {
+            color: #007bff;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .logout {
+            background-color: #e74c3c;
+        }
+        .logout:hover {
+            background-color: #c0392b;
+        }
+        footer {
+            background-color: #f4f7fc;
+            width: auto;
+            /* padding: 10px 0; */
+            margin-left: 20px;
+            color: #003369;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <img src="{{ url_for('static', filename='images/logo-navbar-srikandi.png') }}" alt="Gambar" style="width: 250px; margin-left: 10px;">
+        <ul class="menu">
+            <!-- <li><a href="#">Profil</a></li> -->
+            <li><a href="/tte">Tanda Tangan Elektronik</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <header>
+            <!-- <button class="button logout" style="">Logout</button> -->
+            <div>Badan Siber dan Sandi Negara
+                <!-- <button class="button logout" style="">Logout</button> -->
+            </div>
+        </header>
+
+        <div class="profile-container">
+            <h2>Profil Pengguna</h2>
+            <div class="info">
+                <p><strong>IDN:</strong> {{ user.idn }}</p>
+                <p><strong>Name:</strong> {{ user.name }}</p>
+                <!-- <p><strong>Email:</strong> {{ user.email }}</p> -->
+            </div>
+            <!-- <a href="/tte" class="button">Lakukan TTE</a> -->
+            <a href="/logout" class="button logout">Keluar</a>
+        </div>
+
+        <footer style="margin-top: 350px; padding-left: 45px;">
+            &copy; 2025 Balai Layanan Penghubung Identitas Digital. All Rights Reserved.
+        </footer>
+    </div>
+
+</body>
+</html>

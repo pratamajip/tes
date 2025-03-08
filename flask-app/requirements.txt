@@ -1,0 +1,16 @@
+Flask
+requests
+python-keycloak
+python-dotenv
+flask-oidc
+oauth2client
+fitz
+frontend
+tools
+pymupdf
+pillow
+PyPDF2
+pyhanko
+pdf2image
+reportlab
+jsonify
