@@ -41,7 +41,7 @@ hostname_flask = os.getenv('HOSTNAME_FLASK')
 hostname_kc = os.getenv('HOSTNAME_KC')
 
 KEYCLOAK_SERVER_URL = f'http://{hostname_kc}/'
-KEYCLOAK_REALM_NAME = 'blpid'
+KEYCLOAK_REALM_NAME = 'master'
 KEYCLOAK_CLIENT_ID = os.getenv('KEYCLOAK_CLIENT_ID')
 KEYCLOAK_CLIENT_SECRET = os.getenv('KEYCLOAK_CLIENT_SECRET')
 KEYCLOAK_REDIRECT_URI = f'http://{hostname_flask}:8200/callback'
