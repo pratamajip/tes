@@ -280,13 +280,13 @@
         });
 
         async function renderPage(pageNumber) {
+            currentPage = pageNumber; // Simpan halaman saat ini
+
             let page = await pdfDoc.getPage(pageNumber);
             let viewport = page.getViewport({ scale: 1.675 });
 
             let pdfCanvas = document.getElementById('pdf-canvas');
             pdfCanvas.width = viewport.width;
-            console.log(viewport.width);
-            console.log(viewport.height);
             pdfCanvas.height = viewport.height;
 
             let context = pdfCanvas.getContext('2d');
@@ -361,27 +361,31 @@
 
             let pdfBytes = await pdfFile.arrayBuffer();
             let pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
-            let page = pdfDoc.getPages()[0];
+
+            // Ambil halaman yang sedang ditampilkan (currentPage)
+            let page = pdfDoc.getPages()[currentPage - 1]; // -1 karena array index mulai dari 0
             let { width, height } = page.getSize();
 
             // Dapatkan ukuran asli dari konvaStage
             let stageWidth = konvaStage.width();
             let stageHeight = konvaStage.height();
 
-            // Ambil gambar dari Konva dengan pixelRatio tinggi
+            // Ambil gambar dari Konva Stage
             let konvaDataUrl = konvaStage.toDataURL({ pixelRatio: window.devicePixelRatio, mimeType: "image/png", quality: 1 });
             let img = await pdfDoc.embedPng(konvaDataUrl);
 
-            // Hitung skala agar sesuai dengan PDF
+            // Sesuaikan ukuran agar sesuai dengan halaman PDF
             let scaleX = width / stageWidth;
             let scaleY = height / stageHeight;
 
-            // Terapkan gambar ke halaman PDF
+            // Terapkan gambar ke halaman PDF yang sedang ditampilkan
             page.drawImage(img, { x: 0, y: 0, width: width, height: height });
 
+            // Simpan PDF yang telah dimodifikasi
             let finalPdfBytes = await pdfDoc.save();
             let pdfBlob = new Blob([finalPdfBytes], { type: "application/pdf" });
 
+            // Kirim PDF ke server
             let formData = new FormData();
             formData.append("pdf", pdfBlob, "edited_document.pdf");
 
@@ -393,6 +397,7 @@
             .then(data => alert("PDF berhasil disimpan!"))
             .catch(error => console.error("Error:", error));
         }
+
 
 
         function signPDF() {
@@ -417,7 +422,7 @@
                 }
                 return response.text();
             }).then(() => {
-                window.location.href = "http://localhost:8200/download_signed";
+                window.location.href = "/download_signed";
             }).catch(error => {
                 alert(error.message);
             });
