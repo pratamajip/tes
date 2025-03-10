@@ -42,45 +42,12 @@
 
             <div class="form-group">   
                 <div class="${properties.kcLabelWrapperClass!}">       
-                    <label for="user.attributes.unit" class="${properties.kcLabelClass!}">Unit Kerja</label>   
-                </div>
-                    <div class="${properties.kcInputWrapperClass!}">       
-                        <input type="text" class="${properties.kcInputClassRegister!} mb-3"  id="user.attributes.unit" name="user.attributes.unit"/>   
-                    </div>
-                </div>
-
-            <div class="form-group">   
-                <div class="${properties.kcLabelWrapperClass!}">       
                     <label for="user.attributes.nik" class="${properties.kcLabelClass!}">NIK</label>   
                 </div>
                     <div class="${properties.kcInputWrapperClass!}">       
                         <input type="text" class="${properties.kcInputClassRegister!} mb-3"  id="user.attributes.nik" name="user.attributes.nik"/>   
                     </div>
                 </div>
-            <div class="form-group">   
-                <div class="${properties.kcLabelWrapperClass!}">       
-                    <label for="user.attributes.nip" class="${properties.kcLabelClass!}">NIP</label>   
-                </div>
-                    <div class="${properties.kcInputWrapperClass!}">       
-                        <input type="text" class="${properties.kcInputClassRegister!} mb-3"  id="user.attributes.nip" name="user.attributes.nip"/>   
-                    </div>
-                </div>    
-            <div class="form-group">   
-                <div class="${properties.kcLabelWrapperClass!}">       
-                    <label for="user.attributes.pangkat" class="${properties.kcLabelClass!}">Pangkat</label>   
-                </div>
-                    <div class="${properties.kcInputWrapperClass!}">       
-                        <input type="text" class="${properties.kcInputClassRegister!} mb-3"  id="user.attributes.pangkat" name="user.attributes.pangkat"/>   
-                    </div>
-                </div>   
-            <div class="form-group">   
-                <div class="${properties.kcLabelWrapperClass!}">       
-                    <label for="user.attributes.golongan" class="${properties.kcLabelClass!}">Golongan</label>   
-                </div>
-                    <div class="${properties.kcInputWrapperClass!}">       
-                        <input type="text" class="${properties.kcInputClassRegister!} mb-3"  id="user.attributes.golongan" name="user.attributes.golongan"/>   
-                    </div>
-                </div>                                            
             <div class="${properties.kcFormGroupClass!}">
                 <div class="${properties.kcLabelWrapperClass!}">
                     <label for="email" class="${properties.kcLabelClass!}">${msg("email")}</label>
