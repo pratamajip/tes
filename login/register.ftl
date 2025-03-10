@@ -9,7 +9,7 @@
                     <label for="firstName" class="${properties.kcLabelClass!}">${msg("firstName")}</label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
-                    <input type="text" id="firstName" class="${properties.kcInputClass!}" name="firstName"
+                    <input type="text" id="firstName" class="${properties.kcInputClassRegister!} mb-3" name="firstName"
                            value="${(register.formData.firstName!'')}"
                            aria-invalid="<#if messagesPerField.existsError('firstName')>true</#if>"
                     />
@@ -27,7 +27,7 @@
                     <label for="lastName" class="${properties.kcLabelClass!}">${msg("lastName")}</label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
-                    <input type="text" id="lastName" class="${properties.kcInputClass!}" name="lastName"
+                    <input type="text" id="lastName" class="${properties.kcInputClassRegister!} mb-3" name="lastName"
                            value="${(register.formData.lastName!'')}"
                            aria-invalid="<#if messagesPerField.existsError('lastName')>true</#if>"
                     />
@@ -45,7 +45,7 @@
                     <label for="user.attributes.unit" class="${properties.kcLabelClass!}">Unit Kerja</label>   
                 </div>
                     <div class="${properties.kcInputWrapperClass!}">       
-                        <input type="text" class="${properties.kcInputClass!}"  id="user.attributes.unit" name="user.attributes.unit"/>   
+                        <input type="text" class="${properties.kcInputClassRegister!} mb-3"  id="user.attributes.unit" name="user.attributes.unit"/>   
                     </div>
                 </div>
 
@@ -54,7 +54,7 @@
                     <label for="user.attributes.nik" class="${properties.kcLabelClass!}">NIK</label>   
                 </div>
                     <div class="${properties.kcInputWrapperClass!}">       
-                        <input type="text" class="${properties.kcInputClass!}"  id="user.attributes.nik" name="user.attributes.nik"/>   
+                        <input type="text" class="${properties.kcInputClassRegister!} mb-3"  id="user.attributes.nik" name="user.attributes.nik"/>   
                     </div>
                 </div>
             <div class="form-group">   
@@ -62,7 +62,7 @@
                     <label for="user.attributes.nip" class="${properties.kcLabelClass!}">NIP</label>   
                 </div>
                     <div class="${properties.kcInputWrapperClass!}">       
-                        <input type="text" class="${properties.kcInputClass!}"  id="user.attributes.nip" name="user.attributes.nip"/>   
+                        <input type="text" class="${properties.kcInputClassRegister!} mb-3"  id="user.attributes.nip" name="user.attributes.nip"/>   
                     </div>
                 </div>    
             <div class="form-group">   
@@ -70,7 +70,7 @@
                     <label for="user.attributes.pangkat" class="${properties.kcLabelClass!}">Pangkat</label>   
                 </div>
                     <div class="${properties.kcInputWrapperClass!}">       
-                        <input type="text" class="${properties.kcInputClass!}"  id="user.attributes.pangkat" name="user.attributes.pangkat"/>   
+                        <input type="text" class="${properties.kcInputClassRegister!} mb-3"  id="user.attributes.pangkat" name="user.attributes.pangkat"/>   
                     </div>
                 </div>   
             <div class="form-group">   
@@ -78,7 +78,7 @@
                     <label for="user.attributes.golongan" class="${properties.kcLabelClass!}">Golongan</label>   
                 </div>
                     <div class="${properties.kcInputWrapperClass!}">       
-                        <input type="text" class="${properties.kcInputClass!}"  id="user.attributes.golongan" name="user.attributes.golongan"/>   
+                        <input type="text" class="${properties.kcInputClassRegister!} mb-3"  id="user.attributes.golongan" name="user.attributes.golongan"/>   
                     </div>
                 </div>                                            
             <div class="${properties.kcFormGroupClass!}">
@@ -86,7 +86,7 @@
                     <label for="email" class="${properties.kcLabelClass!}">${msg("email")}</label>
                 </div>
                 <div class="${properties.kcInputWrapperClass!}">
-                    <input type="text" id="email" class="${properties.kcInputClass!}" name="email"
+                    <input type="text" id="email" class="${properties.kcInputClassRegister!} mb-3" name="email"
                            value="${(register.formData.email!'')}" autocomplete="email"
                            aria-invalid="<#if messagesPerField.existsError('email')>true</#if>"
                     />
@@ -105,7 +105,7 @@
                         <label for="username" class="${properties.kcLabelClass!}">${msg("username")}</label>
                     </div>
                     <div class="${properties.kcInputWrapperClass!}">
-                        <input type="text" id="username" class="${properties.kcInputClass!}" name="username"
+                        <input type="text" id="username" class="${properties.kcInputClassRegister!} mb-3" name="username"
                                value="${(register.formData.username!'')}" autocomplete="username"
                                aria-invalid="<#if messagesPerField.existsError('username')>true</#if>"
                         />
@@ -125,7 +125,7 @@
                         <label for="password" class="${properties.kcLabelClass!}">${msg("password")}</label>
                     </div>
                     <div class="${properties.kcInputWrapperClass!}">
-                        <input type="password" id="password" class="${properties.kcInputClass!}" name="password"
+                        <input type="password" id="password" class="${properties.kcInputClassRegister!} mb-3" name="password"
                                autocomplete="new-password"
                                aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>"
                         />
@@ -144,7 +144,7 @@
                                class="${properties.kcLabelClass!}">${msg("passwordConfirm")}</label>
                     </div>
                     <div class="${properties.kcInputWrapperClass!}">
-                        <input type="password" id="password-confirm" class="${properties.kcInputClass!}"
+                        <input type="password" id="password-confirm" class="${properties.kcInputClassRegister!} mb-3"
                                name="password-confirm"
                                aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>"
                         />
@@ -174,7 +174,7 @@
                 </div>
 
                 <div id="kc-form-buttons" class="${properties.kcFormButtonsClass!}">
-                    <input class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!}" type="submit" value="${msg("doRegister")}"/>
+                    <input class="btn btn-primary d-grid w-100" type="submit" value="${msg("doRegister")}"/>
                 </div>
             </div>
         </form>
