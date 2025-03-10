@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label for="username" class="form-label"><#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if></label>
 
-                            <input tabindex="1" id="username" class="form-control font-placeholder" name="username" value="${(login.username!'')}" placeholder="Masukan Email atau Username Anda"  type="text" autofocus autocomplete="off"
+                            <input tabindex="1" id="username" class="form-control font-placeholder" name="username" value="${(login.username!'')}" placeholder="Masukkan Email atau Username Anda"  type="text" autofocus autocomplete="off"
                                    aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                             />
 
